@@ -12,7 +12,7 @@ const dispatch = useDispatch();
 const { items, isLoading, error } = useSelector(takeContacts);
   useEffect(()=>{
 dispatch(fetchContacts())
-  })
+  },[dispatch])
   // const contacts = useSelector(takeContacts);
   // const filterValue = useSelector(takeFilter);
 

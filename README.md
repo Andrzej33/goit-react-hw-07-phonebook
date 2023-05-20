@@ -1,6 +1,6 @@
 # React homework template
 
-https://646885c360c8cb9a2cab8d4d.mockapi.io/api/contacts/:endpoint
+https://646885c360c8cb9a2cab8d4d.mockapi.io/api/v5/:endpoint
 
 
 Этот проект был создан при помощи

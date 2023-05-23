@@ -2,11 +2,12 @@ import { Formik, Field } from 'formik';
 import { Form, ErrorMessage } from './Form.styled';
 import * as Yup from 'yup';
 
-// import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // import { add } from 'Redux/contactsSlice';
 // import { nanoid } from '@reduxjs/toolkit';
-// import { takeContacts } from 'Redux/selectors';
+import { takeContacts } from 'Redux/selectors';
+import { addContact } from 'API/API.Axios';
 
 // const  phoneRegEx = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
@@ -21,30 +22,31 @@ const ContactsSchema = Yup.object().shape({
 });
 
 export const ContactForm = () => {
-  // const contacts = useSelector(takeContacts);
-  // const dispatch = useDispatch();
+ 
+  const { items } = useSelector(takeContacts);
+  const dispatch = useDispatch();
 
-  // const handleSubmit = (values, actions) => {
-  //   if (
-  //     contacts.find(
-  //       contact => contact.name.toLowerCase() === values.name.toLowerCase()
-  //     )
-  //   ) {
-  //     alert(`${values.name} is already in contacts`);
-  //     return;
-  //   }
-  //   if (contacts.find(contact => contact.number === values.number)) {
-  //     alert(`${values.number} is already exist in contacts`);
-  //     return;
-  //   }
-  //   {
-  //     const newValues = { ...values, id: nanoid() };
+  const handleSubmit = (values, actions) => {
+    if (
+      items.find(
+        contact => contact.name.toLowerCase() === values.name.toLowerCase()
+      )
+    ) {
+      alert(`${values.name} is already in contacts`);
+      return;
+    }
+    if (items.find(contact => contact.number === values.number)) {
+      alert(`${values.number} is already exist in contacts`);
+      return;
+    }
+    {
+      const newValues = {name: values.name,phone:values.number };
 
-  //     dispatch(add(newValues));
-  //   }
+      dispatch(addContact(newValues));
+    }
 
-  //   actions.resetForm();
-  // };
+    actions.resetForm();
+  };
 
   return (
     <Formik
@@ -53,7 +55,7 @@ export const ContactForm = () => {
         number: '',
       }}
       validationSchema={ContactsSchema}
-      // onSubmit={handleSubmit}
+      onSubmit={handleSubmit}
     >
       <Form>
         <label>Name </label>

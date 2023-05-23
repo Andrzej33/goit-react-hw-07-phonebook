@@ -1,9 +1,10 @@
+import { deleteContact } from 'API/API.Axios';
 import PropTypes from 'prop-types';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 // import { remove } from 'Redux/contactsSlice';
 
 export const ContactItem = ({ contact: { id, name, phone } }) => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -11,9 +12,9 @@ export const ContactItem = ({ contact: { id, name, phone } }) => {
         {name}: <span>{phone}</span>
       </p>
 
-      {/* <button type="button" onClick={() => dispatch(remove(id))}>
+      <button type="button" onClick={() => dispatch(deleteContact(id))}>
         delete
-      </button> */}
+      </button>
     </>
   );
 };

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchContacts } from 'API/API.Axios';
+import { fetchContacts, deleteContact } from 'API/API.Axios';
 
 // export const contactsSlice = createSlice({
 //   name: 'contacts ',
@@ -40,7 +40,39 @@ export const contactsSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
+    [deleteContact.pending](state) {
+      state.isLoading = true;
+    },
+    [deleteContact.fulfilled](state, action) {
+      state.isLoading = false;
+      state.error = null;
+      const index = state.items.findIndex(
+            contact => contact.id === action.payload.id
+           );
+          state.items.splice(index, 1);
+    //  state.items.filter(contact => contact.id !== action.payload);
+    },
+    [deleteContact.rejected](state, action) {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
   },
 });
+
+// [deleteTask.pending](state) {
+//   state.isLoading = true;
+// },
+// [deleteTask.fulfilled](state, action) {
+//   state.isLoading = false;
+//   state.error = null;
+//   const index = state.items.findIndex(
+//     task => task.id === action.payload.id
+//   );
+//   state.items.splice(index, 1);
+// },
+// [deleteTask.rejected](state, action) {
+//   state.isLoading = false;
+//   state.error = action.payload;
+// },
 
 // export const contactsReducer = contactsSlice.reducer;

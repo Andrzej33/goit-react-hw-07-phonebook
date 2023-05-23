@@ -2,7 +2,7 @@ import { FilterBox } from './Filter.styled';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { show } from 'Redux/filterSlice';
-import { takeFilter } from 'Redux/selectors';
+import { selectFilter } from 'Redux/selectors';
 
 export const Filter = () => {
   const dispatch = useDispatch();
@@ -11,10 +11,10 @@ export const Filter = () => {
     dispatch(show(filterValue));
   };
 
-  const filterValue = useSelector(takeFilter);
+  const filterValue = useSelector(selectFilter);
   return (
     <FilterBox>
-      <label htmlFor="">Find contacts by name</label>{' '}
+      <label htmlFor="">Find contacts by name</label>
       <input type="text" value={filterValue} onChange={onChange} />
     </FilterBox>
   );

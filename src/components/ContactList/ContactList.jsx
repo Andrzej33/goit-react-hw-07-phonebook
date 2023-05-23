@@ -1,20 +1,18 @@
-// import { takeContacts, takeFilter } from 'Redux/selectors';
 import { ContactItem } from '../ContactItem/ContactItem';
-
 import { useEffect } from 'react';
 import { ListOfContacts } from './ContactList.styled';
 import { useSelector, useDispatch } from 'react-redux';
-import { takeContacts, takeFilter } from 'Redux/selectors';
+import { selectContacts, selectFilter } from 'Redux/selectors';
 import { fetchContacts } from 'API/API.Axios';
 
 export const ContactList = () => {
-const dispatch = useDispatch();
-const { items, isLoading, error } = useSelector(takeContacts);
-  useEffect(()=>{
-dispatch(fetchContacts())
-  },[dispatch])
-  // const contacts = useSelector(takeContacts);
-  const filterValue = useSelector(takeFilter);
+  const dispatch = useDispatch();
+  const { items, isLoading, error } = useSelector(selectContacts);
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
+
+  const filterValue = useSelector(selectFilter);
 
   const filteredContacts = items.filter(item =>
     item.name.toLowerCase().includes(filterValue.toLowerCase())
@@ -27,10 +25,9 @@ dispatch(fetchContacts())
   }
 
   return (
-    <>
     <ListOfContacts>
       {isLoading && <b>Loading tasks...</b>}
-     {error && <b>{error}</b>}
+      {error && <b>{error}</b>}
       {filteredContacts.map(contact => {
         return (
           <li key={contact.id}>
@@ -39,10 +36,5 @@ dispatch(fetchContacts())
         );
       })}
     </ListOfContacts>
-     {/* <div>
-     
-     <p>{items.length > 0 && JSON.stringify(items, null, 2)}</p>
-   </div> */}
-   </>
   );
 };

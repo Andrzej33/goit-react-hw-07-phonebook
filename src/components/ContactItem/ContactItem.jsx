@@ -1,7 +1,6 @@
 import { deleteContact } from 'API/API.Axios';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-// import { remove } from 'Redux/contactsSlice';
 
 export const ContactItem = ({ contact: { id, name, phone } }) => {
   const dispatch = useDispatch();

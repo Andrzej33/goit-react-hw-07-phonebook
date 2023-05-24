@@ -4,6 +4,7 @@ import { ListOfContacts } from './ContactList.styled';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectContacts, selectFilter } from 'Redux/selectors';
 import { fetchContacts } from 'API/API.Axios';
+import { ThreeDots } from 'react-loader-spinner';
 
 export const ContactList = () => {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ export const ContactList = () => {
 
   return (
     <ListOfContacts>
-      {isLoading && <b>Loading tasks...</b>}
+      {isLoading && <ThreeDots color="darkblue" />}
       {error && <b>{error}</b>}
       {filteredContacts.map(contact => {
         return (
